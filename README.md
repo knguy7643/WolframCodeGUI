@@ -24,17 +24,17 @@ Now each of these configurations are number 7 to 0 from left to right to serve a
 ## Checklist
 
 - [x] Create all needed classes.
-- [ ] Add method signatures for Automaton class.
+- [x] Add method signatures for Automaton class.
 - [x] Add method signatures for Generation class.
 - [x] Add method signatures for Cell class.
 - [x] Add method signatures for EvolvedCell class.
 - [x] Add method signatures for CellState enum.
 - [x] Add method signatures for Rule(abstract) class.
-- [ ] Add method signatures for ElementaryRule class.
-- [ ] Add method signatures for TotalisticRule class.
-- [ ] Add method signatures for InvalidRuleNumException class.
-- [ ] Add method signatures for InvalidStepNumException class.
+- [x] Add method signatures for ElementaryRule class.
+- [x] Add method signatures for TotalisticRule class.
+- [x] Add method signatures for InvalidRuleNumException class.
+- [x] Add method signatures for InvalidStepNumException class.
 - [x] Add method signatures for BoundaryConditions class.
-- [ ] Add method signatures for FixedBoundaryConditions class.
-- [ ] Add method signatures for CircularBoundaryConditions class.
+- [x] Add method signatures for FixedBoundaryConditions class.
+- [x] Add method signatures for CircularBoundaryConditions class.
 - [ ] Add method signatures for AutomatonMeasurements class.
