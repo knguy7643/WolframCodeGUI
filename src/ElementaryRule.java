@@ -78,7 +78,7 @@ public class ElementaryRule extends Rule {
 	public String toString() {
 		String str = "";
 		
-		String topLine = "000 00, 0,0 0,, ,00 ,0, ,,0 ,,,";
+		String topLine = "000 00. 0.0 0.. .00 .0. ..0 ...";
 		
 		for (int idx = 0; idx < topLine.length(); idx++) {
 			if (topLine.charAt(idx) == '0') {
