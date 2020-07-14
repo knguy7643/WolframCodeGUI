@@ -1,6 +1,11 @@
 import java.awt.BorderLayout;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -18,6 +23,20 @@ public class UserInterface {
 	private static Generation initialGen;
 	private static BoundaryConditions bc;
 	private static Automaton auto;
+	private static String filename;
+	
+	private static String information;
+	
+	public static void save(String filename, Automaton auto) throws IOException {
+		BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+		
+		writer.write(information + "\n\n");
+		
+		writer.write(auto.getHistory());
+		
+		writer.close();
+		
+	}
 
 	public static void main(String[] args) {
 		
@@ -123,6 +142,9 @@ public class UserInterface {
 		
 		frame.add(submit);
 		
+		JPanel stepNumPanel = new JPanel();
+		
+		
 		bcOptions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				if (bcOptions.getSelectedItem() == "Fixed") {
@@ -160,6 +182,7 @@ public class UserInterface {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
+					filename = "TotalisitcRule-" + tRuleNums.getSelectedItem() + "-";
 				}
 				else {
 					try {
@@ -168,6 +191,7 @@ public class UserInterface {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
+					filename = "ElementaryRule-" + eRuleNums.getSelectedItem() + "-";
 				}
 
 				if (bcOptions.getSelectedItem() == "Fixed") {
@@ -183,15 +207,36 @@ public class UserInterface {
 					else {
 						bc = new FixedBoundaryConditions(CellState.ON, CellState.ON);
 					}
+					filename = filename + "FixedBoundaryConditions.txt";
 				}
 				else {
 					bc = new CircularBoundaryConditions();
+					filename = filename + "CircularBoundaryConditions.txt";
 				}
 				
 				initialGen = new Generation(genString.getText().trim()); 
 				
-				System.out.println(rule.toString());
-				System.out.println(initialGen.toString());
+				auto = new Automaton(rule, initialGen, bc);
+				
+				information = "Initial Generation: " + initialGen.toString() + "\n\n";
+				
+				information = information + rule.toString();
+				
+				try {
+					save(filename, auto);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				Desktop desktop = Desktop.getDesktop();
+				File file = new File(filename);
+				try {
+					desktop.open(file);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				
 			}
 		});
