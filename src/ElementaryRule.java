@@ -105,6 +105,8 @@ public class ElementaryRule extends Rule {
 			}
 		}
 		
+		str = "Elementary Rule \n" + str;
+		
 		return str;
 	}
 

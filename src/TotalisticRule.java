@@ -91,6 +91,8 @@ public class TotalisticRule extends Rule {
 		
 		str = str.trim();
 		
+		str = "Totalistic Rle \n" + str;
+		
 		return str;
 	}
 
