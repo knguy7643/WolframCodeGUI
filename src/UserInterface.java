@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,7 +25,7 @@ public class UserInterface {
 		JFrame frame = new JFrame("Automaton Generator");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
-		frame.setSize(400, 400);
+		frame.setSize(400, 600);
 		BoxLayout boxLayout = new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS);
 		frame.setLayout(boxLayout);
 		
@@ -98,11 +99,38 @@ public class UserInterface {
 		fbcR.add(right);
 		fbcR.add(fixedOpts2);
 		
+		/*
+		JPanel symbolPanel = new JPanel();
+		JLabel falseCharLabel = new JLabel("False/Off Charater: ");
+		JLabel trueCharLabel = new JLabel("True/On Character: ");
+		JTextField falseCharField = new JTextField(1);
+		JTextField trueCharField = new JTextField(1);
+		
+		symbolPanel.add(falseCharLabel);
+		symbolPanel.add(falseCharField);
+		symbolPanel.add(trueCharLabel);
+		symbolPanel.add(trueCharField);
+		*/
+		
+		JPanel genPanel = new JPanel();
+		JLabel genLabel = new JLabel("String of Initial Generation Characters: ");
+		JTextField genString = new JTextField(20);
+		
+		genPanel.add(genLabel);
+		genPanel.add(genString);
+		
+		JButton submit = new JButton("Submit");
+		
+		frame.add(submit);
+		
 		bcOptions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				if (bcOptions.getSelectedItem() == "Fixed") {
 					frame.add(fbcL);
 					frame.add(fbcR);
+					//frame.add(symbolPanel);	
+					frame.add(genPanel);
+					frame.add(submit);
 					frame.revalidate();
 				}
 				else {
@@ -113,17 +141,61 @@ public class UserInterface {
 			}
 		});
 		
-		JPanel symbolPanel = new JPanel();
-		JLabel falseCharLabel = new JLabel("False/Off Charater: ");
-		JLabel trueCharLabel = new JLabel("True/On Character: ");
-		JTextField falseCharField = new JTextField(1);
-		JTextField trueCharField = new JTextField(1);
-		
 		//Add components to JFrame.
 		frame.add(ruleTypePanel);
 		frame.add(rulePanel);
 		frame.add(bCPanel);
+		//frame.add(symbolPanel);	
+		frame.add(genPanel);
+
+		frame.add(submit);
 		
+		
+		submit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (ruleList.getSelectedItem() == "Totalistic Rule") {
+					try {
+						rule = new TotalisticRule(Integer.parseInt((String)tRuleNums.getSelectedItem()));
+					} catch (InvalidRuleNumException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+				else {
+					try {
+						rule = new ElementaryRule(Integer.parseInt((String)eRuleNums.getSelectedItem()));
+					} catch (InvalidRuleNumException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+
+				if (bcOptions.getSelectedItem() == "Fixed") {
+					if ((fixedOpts1.getSelectedItem() == "CellState OFF") && (fixedOpts2.getSelectedItem() == "CellState OFF")) {
+						bc = new FixedBoundaryConditions(CellState.OFF, CellState.OFF);
+					}
+					else if ((fixedOpts1.getSelectedItem() == "CellState OFF") && (fixedOpts2.getSelectedItem() == "CellState ON")) {
+						bc = new FixedBoundaryConditions(CellState.OFF, CellState.ON);
+					}
+					else if ((fixedOpts1.getSelectedItem() == "CellState ON") && (fixedOpts2.getSelectedItem() == "CellState OFF")) {
+						bc = new FixedBoundaryConditions(CellState.ON, CellState.OFF);
+					}
+					else {
+						bc = new FixedBoundaryConditions(CellState.ON, CellState.ON);
+					}
+				}
+				else {
+					bc = new CircularBoundaryConditions();
+				}
+				
+				initialGen = new Generation(genString.getText().trim()); 
+				
+				System.out.println(rule.toString());
+				System.out.println(initialGen.toString());
+				
+			}
+		});
+	
 		//Make JFrame visible.
 		frame.setVisible(true);
 		
