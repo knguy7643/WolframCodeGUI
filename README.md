@@ -37,4 +37,6 @@ Now each of these configurations are number 7 to 0 from left to right to serve a
 - [x] Add method signatures for BoundaryConditions class.
 - [x] Add method signatures for FixedBoundaryConditions class.
 - [x] Add method signatures for CircularBoundaryConditions class.
-- [ ] Add method signatures for AutomatonMeasurements class.
+- [x] Add method signatures for AutomatonMeasurements class.
+- [x] Complete method bodies.
+- [ ] Begin GUI.
