@@ -2,6 +2,12 @@
 
 ----------------------------
 
+## How To Use
+
+Once the code is ran, the user can select if they would like to implement a Totalisitc Rule or an Elementary Rule. With the Totalistic Rule, the cell's next state is determined by the number of "ON" cell states in their neighborhood. With the Elementary Rule, the cell's next state is determined by the order of cellstates in the cell's neighborhood. After that the user can select the desired listen of rule numbers that dynamically changes based on which rule type the user has selected. This avoids the possibility of the user selecting a rule number that exsits outside of the range. The user will then select the type of boundary conditions. The circular boundary conditions treat the start and ends of the generation as neighbor. This can be visualized as connecting to ends of a line to form a circle. 
+
+----------------------------
+
 ## Description
 
 Every cell consists of a cellstate that can be either ON/OFF or T/F. A group of cells form a generation. This generation can be evolved by a set of rules to form an Elementary Cellular Automaton(ECA). An ECA have the following characteristics:
@@ -39,4 +45,4 @@ Now each of these configurations are number 7 to 0 from left to right to serve a
 - [x] Add method signatures for CircularBoundaryConditions class.
 - [x] Add method signatures for AutomatonMeasurements class.
 - [x] Complete method bodies.
-- [ ] Begin GUI.
+- [x] Begin GUI.
