@@ -24,6 +24,7 @@ public class UserInterface {
 	private static BoundaryConditions bc;
 	private static Automaton auto;
 	private static String filename;
+	private static int stepNum;
 	
 	private static String information;
 	
@@ -140,10 +141,12 @@ public class UserInterface {
 		
 		JButton submit = new JButton("Submit");
 		
-		frame.add(submit);
-		
 		JPanel stepNumPanel = new JPanel();
+		JLabel stepnumLabel = new JLabel("Number of Evolutions: ");
+		JTextField stepNumField = new JTextField(4);
 		
+		stepNumPanel.add(stepnumLabel);
+		stepNumPanel.add(stepNumField);
 		
 		bcOptions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
@@ -152,6 +155,7 @@ public class UserInterface {
 					frame.add(fbcR);
 					//frame.add(symbolPanel);	
 					frame.add(genPanel);
+					frame.add(stepNumPanel);
 					frame.add(submit);
 					frame.revalidate();
 				}
@@ -169,7 +173,7 @@ public class UserInterface {
 		frame.add(bCPanel);
 		//frame.add(symbolPanel);	
 		frame.add(genPanel);
-
+		frame.add(stepNumPanel);
 		frame.add(submit);
 		
 		
@@ -214,9 +218,13 @@ public class UserInterface {
 					filename = filename + "CircularBoundaryConditions.txt";
 				}
 				
+				stepNum = Integer.parseInt(stepNumField.getText());
+				
 				initialGen = new Generation(genString.getText().trim()); 
 				
 				auto = new Automaton(rule, initialGen, bc);
+				
+				auto.evolve(stepNum);
 				
 				information = "Initial Generation: " + initialGen.toString() + "\n\n";
 				
