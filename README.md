@@ -4,13 +4,13 @@
 
 ## How To Use
 
-Once the code is ran, the user can select if they would like to implement a Totalisitc Rule or an Elementary Rule. With the Totalistic Rule, the cell's next state is determined by the number of "ON" cell states in their neighborhood. With the Elementary Rule, the cell's next state is determined by the order of cellstates in the cell's neighborhood. After that the user can select the desired listen of rule numbers that dynamically changes based on which rule type the user has selected. This avoids the possibility of the user selecting a rule number that exsits outside of the range. The user will then select the type of boundary conditions. The circular boundary conditions treat the start and ends of the generation as neighbor. This can be visualized as connecting to ends of a line to form a circle. 
+Once the code is ran, the user can select if they would like to implement a Totalisitc Rule or an Elementary Rule. With the Totalistic Rule, the cell's next state is determined by the number of "ON" cell states in their neighborhood. With the Elementary Rule, the cell's next state is determined by the order of cellstates in the cell's neighborhood. After that the user can select the desired listen of rule numbers that dynamically changes based on which rule type the user has selected. This avoids the possibility of the user selecting a rule number that exsits outside of the range. The user will then select the type of boundary conditions. The circular boundary conditions treat the start and ends of the generation as neighbor. This can be visualized as connecting to ends of a line to form a circle. The fixed boundary conditions will allow the user to specify the cell states of the ends of the generation. The user can then type in a string that would be they string representation of the initial generation. The user will then input the number of times they would like to see the automaton evolve. Once the user presses submit, the program will open a txt document with the initial generation, the rule with its rule number and configuration, and the full automaton.
 
 ----------------------------
 
 ## Description
 
-Every cell consists of a cellstate that can be either ON/OFF or T/F. A group of cells form a generation. This generation can be evolved by a set of rules to form an Elementary Cellular Automaton(ECA). An ECA have the following characteristics:
+Every cell consists of a cellstate that can be either ON/OFF or T/F. A group of cells in a linear fashion form a generation. This generation can be evolved by a set of rules to form an Elementary Cellular Automaton(ECA). An ECA have the following characteristics:
 
 1. Each cell can only exist in two states.
 2. The cells are arranged in a line to form a generation.
@@ -46,3 +46,5 @@ Now each of these configurations are number 7 to 0 from left to right to serve a
 - [x] Add method signatures for AutomatonMeasurements class.
 - [x] Complete method bodies.
 - [x] Begin GUI.
+- [ ] Implement methods from the Automaton Measurements class.
+- [ ] Implement JavaFx to depict the results of the Automaton Measurements. 
