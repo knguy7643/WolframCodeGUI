@@ -105,7 +105,7 @@ public class ElementaryRule extends Rule {
 			}
 		}
 		
-		str = "Elementary Rule \n" + str;
+		str = "Elementary Rule " + Integer.toString(getRuleNum()) + "\n" + str;
 		
 		return str;
 	}
