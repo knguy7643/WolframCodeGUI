@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
@@ -25,9 +26,9 @@ public class UserInterface {
 	private static Automaton auto;
 	private static String filename;
 	private static int stepNum;
-	
 	private static String information;
 	
+	//This method will print the needed information into the text document.
 	public static void save(String filename, Automaton auto) throws IOException {
 		BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
 		
@@ -82,6 +83,7 @@ public class UserInterface {
 		
 		JComboBox tRuleNums = new JComboBox<>(tRule);
 		
+		//This action listener changes the list of rule numbers based on the selected rule type.
 		ruleList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				if (ruleList.getSelectedItem() == "Totalistic Rule") {
@@ -97,6 +99,7 @@ public class UserInterface {
 			}
 		});
 		
+		//Select Boundary Conditions
 		JPanel bCPanel = new JPanel();
 		JLabel bcType = new JLabel("Boundary Conditions: ");
 		
@@ -109,7 +112,8 @@ public class UserInterface {
 		String[] fixedOptions = {"CellState OFF", "CellState ON"};
 		JComboBox fixedOpts1 = new JComboBox<>(fixedOptions);
 		JComboBox fixedOpts2 = new JComboBox<>(fixedOptions);
-		 
+		
+		//Select CellStates for Left and Right ends (if Fixed is selected)
 		JPanel fbcL = new JPanel();
 		JPanel fbcR = new JPanel();
 		JLabel left = new JLabel("Left CellState: ");
@@ -118,20 +122,8 @@ public class UserInterface {
 		fbcL.add(fixedOpts1);
 		fbcR.add(right);
 		fbcR.add(fixedOpts2);
-		
-		/*
-		JPanel symbolPanel = new JPanel();
-		JLabel falseCharLabel = new JLabel("False/Off Charater: ");
-		JLabel trueCharLabel = new JLabel("True/On Character: ");
-		JTextField falseCharField = new JTextField(1);
-		JTextField trueCharField = new JTextField(1);
-		
-		symbolPanel.add(falseCharLabel);
-		symbolPanel.add(falseCharField);
-		symbolPanel.add(trueCharLabel);
-		symbolPanel.add(trueCharField);
-		*/
-		
+
+		//Input string of initial generation
 		JPanel genPanel = new JPanel();
 		JLabel genLabel = new JLabel("String of Initial Generation Characters: ");
 		JTextField genString = new JTextField(20);
@@ -139,8 +131,11 @@ public class UserInterface {
 		genPanel.add(genLabel);
 		genPanel.add(genString);
 		
+		//Submit Button once the user and inputed all parameters
 		JButton submit = new JButton("Submit");
 		
+		
+		//Dictate the number of times the automaton should evolve
 		JPanel stepNumPanel = new JPanel();
 		JLabel stepnumLabel = new JLabel("Number of Evolutions: ");
 		JTextField stepNumField = new JTextField(4);
@@ -148,6 +143,7 @@ public class UserInterface {
 		stepNumPanel.add(stepnumLabel);
 		stepNumPanel.add(stepNumField);
 		
+		//This action listeners will show the options to select CellState when the Fixed BC is selected
 		bcOptions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				if (bcOptions.getSelectedItem() == "Fixed") {
@@ -170,15 +166,16 @@ public class UserInterface {
 		//Add components to JFrame.
 		frame.add(ruleTypePanel);
 		frame.add(rulePanel);
-		frame.add(bCPanel);
-		//frame.add(symbolPanel);	
+		frame.add(bCPanel);	
 		frame.add(genPanel);
 		frame.add(stepNumPanel);
 		frame.add(submit);
 		
-		
+		//This action listeners will create a text document with the parameters selected by the user.
 		submit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				//This portion will note the rule tyoe for the file name.
 				if (ruleList.getSelectedItem() == "Totalistic Rule") {
 					try {
 						rule = new TotalisticRule(Integer.parseInt((String)tRuleNums.getSelectedItem()));
@@ -197,7 +194,8 @@ public class UserInterface {
 					}
 					filename = "ElementaryRule-" + eRuleNums.getSelectedItem() + "-";
 				}
-
+				
+				//This will note the bondary conditions for the Fixed BC.
 				if (bcOptions.getSelectedItem() == "Fixed") {
 					if ((fixedOpts1.getSelectedItem() == "CellState OFF") && (fixedOpts2.getSelectedItem() == "CellState OFF")) {
 						bc = new FixedBoundaryConditions(CellState.OFF, CellState.OFF);
@@ -218,6 +216,7 @@ public class UserInterface {
 					filename = filename + "CircularBoundaryConditions.txt";
 				}
 				
+				//Sotres the number of evolutions needed.
 				stepNum = Integer.parseInt(stepNumField.getText());
 				
 				initialGen = new Generation(genString.getText().trim()); 
@@ -237,6 +236,7 @@ public class UserInterface {
 					e1.printStackTrace();
 				}
 				
+				//Opens the txt file once it has been created.
 				Desktop desktop = Desktop.getDesktop();
 				File file = new File(filename);
 				try {
